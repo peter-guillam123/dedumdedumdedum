@@ -65,7 +65,6 @@ async function main() {
     hearBtn.textContent = "Stop";
     const syls = shown.querySelectorAll(".syl");
     beat.play(beat.stepsFromScan(scan), {
-      tempo: 132,
       onStep: (i) => syls.forEach((s, k) => s.classList.toggle("is-now", k === i)),
       onEnd: () => {
         hearBtn.textContent = "Hear the heartbeat";

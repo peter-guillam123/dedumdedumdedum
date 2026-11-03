@@ -575,16 +575,6 @@ function runTap(run) {
     const tempo = TEMPI.find((t) => t[0] === tempoKey)[2];
     const lineSteps = beat.stepsFromScan(scan).map((s) => ({ ...s, pause: 0 }));
     const steps = [{ strength: 0 }, { strength: 2 }, { strength: 0 }, { strength: 2 }, ...lineSteps];
-    // when each step sounds, worked out the same way beat.play does
-    const gap = 60 / tempo / 2;
-    let t = 0;
-    const at = steps.map((st) => {
-      const here = t;
-      t += gap * (st.strength === 2 ? 1.08 : 1) + (st.pause || 0) * gap;
-      return here;
-    });
-    const t0 = performance.now();
-    expected = lineSteps.map((st, k) => ({ k, time: t0 + (0.08 + at[k + 4]) * 1000, beat: st.strength > 0 })).filter((x) => x.beat);
     taps = [];
     running = true;
     start.disabled = true;
@@ -593,7 +583,8 @@ function runTap(run) {
     const syls = [...lineBox.querySelectorAll(".syl")];
     const ci = [...countIn.children];
     lineBox.querySelectorAll(".tap-mark").forEach((n) => n.remove());
-    beat.play(steps, {
+    const t0 = performance.now();
+    const job = beat.play(steps, {
       tempo,
       onStep: (k) => {
         ci.forEach((c, j) => c.classList.toggle("is-now", j === k));
@@ -603,6 +594,8 @@ function runTap(run) {
         setTimeout(() => finish(), 250);
       },
     });
+    // when each beat actually sounds, straight from the player
+    expected = lineSteps.map((st, k) => ({ k, time: t0 + job.at[k + 4] * 1000, beat: st.strength > 0 })).filter((x) => x.beat);
   });
 
   function finish() {

@@ -146,7 +146,6 @@ function hearButton(scan, lineNode, label = "Hear the heartbeat") {
     const syls = [...lineNode.querySelectorAll(".syl")];
     b.textContent = "Stop";
     beat.play(beat.stepsFromScan(scan), {
-      tempo: 120,
       onStep: (k) => syls.forEach((x, j) => x.classList.toggle("is-now", j === k)),
       onEnd: () => {
         b.textContent = label;
@@ -166,13 +165,19 @@ const STEP = {
       card.append(el("div", { class: "verse example" }, line), el("div", { class: "btn-row" }, hearButton(scan, line)));
     }
     if (step.pulse) {
+      const words = [];
+      for (let i = 0; i < step.pulse; i++) words.push(el("span", { class: "de" }, "de"), el("span", { class: "dum" }, "DUM"));
+      const row = el("p", { class: "big-mark pulse-row", "aria-hidden": "true" }, words);
       const b = el("button", { type: "button", class: "btn btn--small" }, "Play de-DUM x 5");
       b.addEventListener("click", () => {
         if (beat.isPlaying()) return beat.stop();
         b.textContent = "Stop";
-        beat.pulse(step.pulse, { tempo: 110, onEnd: () => (b.textContent = "Play de-DUM x 5") });
+        beat.pulse(step.pulse, {
+          onStep: (k) => words.forEach((w, j) => w.classList.toggle("is-now", j === k)),
+          onEnd: () => (b.textContent = "Play de-DUM x 5"),
+        });
       });
-      card.append(el("div", { class: "btn-row" }, b));
+      card.append(row, el("div", { class: "btn-row" }, b));
     }
     if (step.key) card.append(renderKey());
   },
@@ -481,7 +486,7 @@ const STEP = {
       pad.focus();
       // two feet to listen to, then ten to tap
       beat.pulse(12, {
-        tempo: 100,
+        gap: 0.36,
         onStep: (k) => {
           if (k >= 4 && k % 2 === 1) times.push(performance.now());
           pad.classList.toggle("is-cue", k >= 0 && k % 2 === 1);

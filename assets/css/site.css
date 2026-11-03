@@ -12,6 +12,8 @@
   --rule-2: #d3c6af;
   --red: #b3321b;
   --red-soft: #f4d9cf;
+  --now: #e9dfcb;
+  --on-red: #fff;
   --blue: #2457a6;
   --blue-soft: #dbe5f5;
   --green: #2f6b3a;
@@ -41,6 +43,8 @@
     --rule-2: #463d33;
     --red: #ff8466;
     --red-soft: #4a2219;
+    --now: #3a3229;
+    --on-red: #1b0f0b;
     --blue: #8fb3ff;
     --blue-soft: #1d2a44;
     --green: #8fd19a;
@@ -65,6 +69,8 @@
   --rule-2: #463d33;
   --red: #ff8466;
   --red-soft: #4a2219;
+  --now: #3a3229;
+  --on-red: #1b0f0b;
   --blue: #8fb3ff;
   --blue-soft: #1d2a44;
   --green: #8fd19a;
@@ -484,8 +490,47 @@ input[type="range"] {
 .show-beats-bold .syl.is-beat:not(.is-light) {
   font-weight: 700;
 }
+/* The heartbeat playing: the syllable being sounded lights up. A beat
+   turns red and bumps, like the DUMs in the title; its dot swells. */
 .syl.is-now {
+  background: var(--now);
+  box-shadow: 0 0 0 0.08em var(--now);
+}
+.syl.is-now.is-beat {
+  background: var(--red);
+  box-shadow: 0 0 0 0.08em var(--red);
+  color: var(--on-red);
+  animation: sylbeat 0.36s ease-out;
+}
+.syl.is-now.is-beat.is-light {
   background: var(--red-soft);
+  box-shadow: 0 0 0 0.08em var(--red-soft);
+  color: var(--red);
+  animation-name: syllight;
+}
+.syl.is-now::before {
+  animation: dotbeat 0.36s ease-out both;
+}
+.no-marks .syl.is-now.is-beat {
+  background: var(--now);
+  box-shadow: 0 0 0 0.08em var(--now);
+  color: inherit;
+  animation: none;
+}
+@keyframes sylbeat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.16); }
+  100% { transform: scale(1.04); }
+}
+@keyframes syllight {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.07); }
+  100% { transform: scale(1.02); }
+}
+@keyframes dotbeat {
+  0% { transform: translateX(-50%) scale(1); }
+  30% { transform: translateX(-50%) scale(2); }
+  100% { transform: translateX(-50%) scale(1.4); }
 }
 .hyph {
   color: var(--ink-3);
@@ -1073,7 +1118,8 @@ input[type="range"] {
   box-shadow: var(--shadow);
 }
 .row.is-playing {
-  background: var(--red-soft);
+  background: var(--card);
+  box-shadow: inset 4px 0 0 var(--red), var(--shadow);
 }
 .ln {
   font: 400 0.75rem/1 var(--sans);
@@ -1236,4 +1282,28 @@ input[type="range"] {
     top: 0;
     z-index: 5;
   }
+}
+
+/* lesson 1: the de-DUMs light up as the pulse plays */
+.pulse-row {
+  margin: 1rem 0 0.8rem;
+}
+.pulse-row .dum {
+  animation: none;
+  color: var(--ink-3);
+}
+.pulse-row .is-now {
+  color: var(--ink);
+}
+.pulse-row .dum.is-now {
+  color: var(--red);
+  animation: beat 0.36s ease-out;
+}
+.pulse-row .is-now::before {
+  background: var(--red);
+}
+.seg--small button {
+  min-height: 40px;
+  padding: 0 0.7rem;
+  font-size: 0.85rem;
 }

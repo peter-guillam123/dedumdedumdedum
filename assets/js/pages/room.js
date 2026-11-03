@@ -286,6 +286,7 @@ function renderView() {
   $("t-feet").checked = state.feet;
   $("key-holder").replaceChildren(view === "beats" && state.a.summary.verseLines ? renderKey() : "");
   $("play-all").hidden = view !== "beats" || !state.a.summary.verseLines;
+  $("speed").hidden = $("play-all").hidden;
   const box = $("passage");
   box.replaceChildren();
   if (view === "beats") renderBeats(box);
@@ -612,7 +613,6 @@ function playRow(i, btn) {
   }).filter((_, si) => indexes.includes(si));
   btn.textContent = "Stop";
   beat.play(steps, {
-    tempo: 120,
     onStep: (k) => syls.forEach((x, j) => x.classList.toggle("is-now", j === k)),
     onEnd: () => {
       btn.textContent = "Hear it";
@@ -650,7 +650,6 @@ function playAll() {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let lastLi = null;
   beat.play(steps, {
-    tempo: 120,
     onStep: (k) => {
       document.querySelectorAll("#passage .is-now").forEach((n) => n.classList.remove("is-now"));
       if (k < 0) return;
@@ -693,6 +692,14 @@ function wire() {
     renderView();
   });
   $("play-all").addEventListener("click", playAll);
+  const speed = $("speed");
+  const drawSpeed = () =>
+    speed.replaceChildren(
+      ...beat.SPEEDS.map((sp) =>
+        el("button", { type: "button", "aria-pressed": String(sp.key === beat.getSpeed().key), onclick: () => { beat.setSpeed(sp.key); drawSpeed(); } }, sp.label),
+      ),
+    );
+  drawSpeed();
   $("choose-again").addEventListener("click", backToChooser);
   $("whole-speech").addEventListener("click", openWhole);
   $("copy-link").addEventListener("click", async () => {
