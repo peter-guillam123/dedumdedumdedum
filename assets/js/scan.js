@@ -418,6 +418,8 @@ export function createScanner(dictDoc) {
         // trochee: DUM-de, cheap at the start of a line or after a pause
         if (i + 1 < n) {
           let c = k === 0 ? 0.3 : syl[i].breakBefore ? 0.5 : 1.7;
+          // "In the..." is a light start, not a kick: prefer the light beat
+          if ("fFu".includes(syl[i].cls)) c += 0.3;
           if (!syl[i].wordStart) c += 1.0;
           tryFoot(2, c + on(i) + off(i + 1), "trochee");
         }
@@ -481,6 +483,10 @@ export function createScanner(dictDoc) {
       // "play on," "come in.": a particle closing a phrase is stressed
       if (PARTICLES.has(t.word) && (!next || /[.,;:!?\u2013]/.test(t.punct))) {
         vs = vs.map((v) => (v.cls.length === 1 ? { ...v, cls: "C" } : v));
+      }
+      // a small word closing a phrase takes some stress: "To be, or not"
+      if (k < wordToks.length - 1 && /[,;:!?.\u2013]/.test(t.punct) && WEAK.has(t.word) && !PARTICLES.has(t.word)) {
+        vs = vs.map((v) => (v.cls === "F" ? { ...v, cls: "M" } : v));
       }
       // a small word ending the line takes some stress: "this, not I"
       if (k === wordToks.length - 1 && !PARTICLES.has(t.word) && wordToks.length > 3) {

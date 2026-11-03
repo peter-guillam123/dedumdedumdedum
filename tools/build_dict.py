@@ -150,6 +150,7 @@ EXTRA = {
     "adieu": "01", "dotage": "10", "orisons": "100", "bodkin": "10", "fardels": "10",
     "quietus": "010", "thews": "1", "mought": "1", "anointed": "010", "cozen": "10",
     "cozenage": "100", "mountebank": "100", "bawd": "1", "wench": "1", "coxcomb": "10",
+    "alarum": "010", "alarums": "010", "entreated": "010", "entreating": "010",
     # names
     "antipholus": "0100", "cassio": "100|10", "troilus": "100|10", "marcius": "100|10",
     "cassius": "100|10", "proteus": "100|10", "caius": "10", "northumberland": "0100",
@@ -188,6 +189,58 @@ EXTRA = {
 }
 
 
+def count_syllables(word):
+    """Syllables from spelling alone (mirrors guessSyllables in scan.js)."""
+    w = re.sub(r"[^a-z]", "", word.lower())
+    if not w:
+        return 0
+    if len(w) <= 3:
+        return max(1, len(re.findall(r"[aeiouy]+", w)))
+    w = re.sub(r"(?:[^laeiouy]es|[^laeiouy]ed|[^laeiouy]e)$", lambda m: m.group(0)[0], w)
+    w = re.sub(r"^y", "", w)
+    n = len(re.findall(r"[aeiouy]+", w))
+    n += 0.5 * len(re.findall(r"(?<![tsxc])(?:ia|io)|eo|ua|uo|iu", w))
+    if re.search(r"[^aeiouy]re$", word.lower()):
+        n += 1  # sepulchre, theatre
+    return max(1, int(n + 0.5))
+
+
+SUFFIX_PATS = [("ments", "0"), ("ment", "0"), ("ness", "0"), ("less", "0"), ("fully", "00"), ("ful", "0"),
+               ("ly", "0"), ("ers", "0"), ("er", "0"), ("ings", "0"), ("ing", "0"), ("est", "0"), ("eth", "0"),
+               ("ed", None), ("es", None), ("s", ""), ("ance", "0"), ("ence", "0"), ("ous", "0")]
+
+
+def derive(word, known):
+    """Stress pattern built from a known stem plus a suffix, or by English rules."""
+    w = word.replace("'", "")
+    for suf, pat in SUFFIX_PATS:
+        if not w.endswith(suf) or len(w) - len(suf) < 3:
+            continue
+        stem = w[: -len(suf)]
+        cands = [stem, stem + "e", stem[:-1] + "y" if stem.endswith("i") else None,
+                 stem[:-1] if len(stem) > 3 and stem[-1] == stem[-2] else None]
+        for c in cands:
+            if c and c in known:
+                base = known[c].split("|")[0].split(":")[0]
+                if pat is None:
+                    pat = "0" if stem[-1:] in ("t", "d") or (suf == "es" and stem[-1:] in "sxz") or stem.endswith(("ch", "sh")) else ""
+                return base + pat
+    n = count_syllables(w)
+    if n <= 1:
+        return "1"
+    if re.search(r"(tion|sion|cian|tions|sions)$", w):
+        p = "0" * (n - 2) + "10"
+    elif re.search(r"(ity|ities|ical|ous|ent|ence|ant|ance|ary|ory)$", w) and n >= 3:
+        p = "0" * (n - 3) + "100"
+    elif re.search(r"^(a|be|de|re|en|em|im|in|un|con|com|dis|mis|ex|pre|pro|per)", w) and n == 2:
+        p = "01"
+    else:
+        p = "1" + "0" * (n - 1)
+    if n >= 4 and p[0] == "0" and p[1] == "0":
+        p = "2" + p[1:]
+    return p
+
+
 def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
@@ -224,6 +277,17 @@ def main():
             if r not in rhymes:
                 rhymes[r] = len(rhymes)
             out[word] += ":" + base36(rhymes[r])
+    # second pass: build what we can for the words still missing (not names)
+    derived = 0
+    for word in list(missing):
+        if word[:1].isupper() or "'" in word.strip("'"):
+            continue
+        p = derive(word, {**out, **EXTRA})
+        if p:
+            out[word] = p
+            derived += 1
+            del missing[word]
+    print(f"{derived} more words built from their parts or by rule")
     doc = {"r": list(rhymes), "w": out}
     with open(os.path.join(ROOT, "data", "dict.json"), "w") as f:
         json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
