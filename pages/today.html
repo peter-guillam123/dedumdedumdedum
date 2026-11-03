@@ -1,0 +1,40 @@
+<!-- {"title": "Today's line · dedumdedumdedum", "description": "One line of Shakespeare a day. Mark the beats, spot the twist, share your score.", "script": "today", "css": "today", "nav": "Today"} -->
+  <div class="wrap today">
+    <p class="eyebrow" id="t-date">Today</p>
+    <h1 id="t-title">Today's line</h1>
+    <p class="lede" id="t-lede">One line a day. Say it out loud, tap the syllables that take a beat, then check. You get one go.</p>
+
+    <section class="card t-step" id="t-step1" aria-labelledby="t-step1-title">
+      <h2 id="t-step1-title" class="t-step__title"><span class="t-num" aria-hidden="true">1</span> Mark the beats</h2>
+      <p class="t-who" id="t-who"></p>
+      <div id="t-line"><p class="small">Loading today's line…</p></div>
+      <div class="btn-row">
+        <button class="btn" type="button" id="t-check">Check</button>
+      </div>
+      <div id="t-result" aria-live="polite"></div>
+    </section>
+
+    <section class="card t-step" id="t-step2" hidden aria-labelledby="t-step2-title">
+      <h2 id="t-step2-title" class="t-step__title"><span class="t-num" aria-hidden="true">2</span> What's the twist in this line?</h2>
+      <p class="small">One answer. The others aren't in this line.</p>
+      <div class="t-options" id="t-options" role="group" aria-labelledby="t-step2-title"></div>
+      <div id="t-answer" aria-live="polite"></div>
+    </section>
+
+    <section class="card t-step" id="t-step3" hidden aria-labelledby="t-step3-title">
+      <h2 id="t-step3-title" class="t-step__title"><span class="t-num" aria-hidden="true">3</span> <span id="t-step3-heading">Your result</span></h2>
+      <pre class="t-share" id="t-share-text"></pre>
+      <div class="btn-row">
+        <button class="btn btn--red" type="button" id="t-share">Share</button>
+        <a class="btn btn--ghost" id="t-room" href="room.html">Open this speech in the rehearsal room</a>
+      </div>
+      <dl class="t-stats" id="t-stats"></dl>
+      <p class="t-tomorrow" id="t-tomorrow"></p>
+    </section>
+
+    <section class="t-more" aria-labelledby="t-more-title">
+      <h2 id="t-more-title" class="visually-hidden">More lines</h2>
+      <div id="t-yesterday"></div>
+      <div id="t-practice"></div>
+    </section>
+  </div>
