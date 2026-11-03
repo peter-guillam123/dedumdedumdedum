@@ -1,0 +1,75 @@
+<!-- {"title": "Rehearsal room · dedumdedumdedum", "description": "Paste any Shakespeare speech, or find it in the plays. Every line scanned, with ways to play it and rehearsal exercises to try.", "script": "room", "nav": "Rehearse"} -->
+  <div class="wrap">
+    <h1>Rehearsal room</h1>
+    <p class="lede">Bring a speech. We'll mark the beats on every line and suggest ways to play it. Our marks are one reading, not the answer: open any line and tap a syllable to change it.</p>
+
+    <section id="chooser" class="chooser" aria-labelledby="choose-title">
+      <h2 id="choose-title" class="visually-hidden">Choose a speech</h2>
+      <div class="seg" role="group" aria-label="How to choose a speech">
+        <button type="button" data-pane="library" aria-pressed="true">Library</button>
+        <button type="button" data-pane="find" aria-pressed="false">Find in the plays</button>
+        <button type="button" data-pane="paste" aria-pressed="false">Paste your own</button>
+      </div>
+
+      <div class="pane" id="pane-library">
+        <p>Speeches we've checked line by line, with notes. Good places to start are marked.</p>
+        <div class="lib-filters seg" role="group" aria-label="Filter the library" id="lib-filters"></div>
+        <ul class="lib-list" id="lib-list"><li class="small">Loading the library…</li></ul>
+      </div>
+
+      <div class="pane" id="pane-find" hidden>
+        <p>Every speech of six lines or more in all 37 plays. Search by the first words or the character, or browse.</p>
+        <label for="find-q">Search</label>
+        <input type="search" id="find-q" placeholder="e.g. Now is the winter, or Juliet" autocomplete="off">
+        <div class="field-row">
+          <div>
+            <label for="find-play">Play</label>
+            <select id="find-play"><option value="">Choose a play</option></select>
+          </div>
+          <div>
+            <label for="find-who">Character</label>
+            <select id="find-who" disabled><option value="">Choose a character</option></select>
+          </div>
+        </div>
+        <p id="find-status" class="small" aria-live="polite"></p>
+        <ul class="result-list" id="find-results"></ul>
+      </div>
+
+      <div class="pane" id="pane-paste" hidden>
+        <label for="paste-text">Your speech</label>
+        <p class="small">Keep the line breaks as they are in your script. Speaker names on their own line are fine.</p>
+        <textarea id="paste-text" rows="10" placeholder="Is this a dagger which I see before me,&#10;The handle toward my hand? Come, let me clutch thee."></textarea>
+        <div class="btn-row" style="margin-top:.7rem"><button class="btn" type="button" id="paste-go">Scan it</button></div>
+      </div>
+    </section>
+
+    <section id="speech" hidden aria-labelledby="speech-title">
+      <div class="speech-head">
+        <p class="eyebrow" id="speech-eyebrow"></p>
+        <h2 id="speech-title" tabindex="-1"></h2>
+        <p class="cite" id="speech-cite"></p>
+        <div class="btn-row">
+          <button class="btn btn--ghost btn--small" type="button" id="choose-again">Choose another speech</button>
+          <button class="btn btn--ghost btn--small" type="button" id="whole-speech" hidden>Open the whole speech</button>
+          <button class="btn btn--ghost btn--small" type="button" id="copy-link">Copy a link</button>
+        </div>
+      </div>
+      <div id="about-box"></div>
+
+      <div class="toolbar" role="group" aria-label="How to show the speech">
+        <div class="seg" role="group" aria-label="View" id="views">
+          <button type="button" data-view="beats" aria-pressed="true">Beats</button>
+          <button type="button" data-view="thoughts" aria-pressed="false">Thoughts</button>
+          <button type="button" data-view="ends" aria-pressed="false">Line ends</button>
+          <button type="button" data-view="breath" aria-pressed="false">Breath</button>
+          <button type="button" data-view="words" aria-pressed="false">Key words</button>
+        </div>
+        <label class="toggle" id="t-try-wrap"><input type="checkbox" id="t-try"> Mark it yourself first</label>
+        <label class="toggle" id="t-feet-wrap"><input type="checkbox" id="t-feet"> Show feet</label>
+        <button class="btn btn--small" type="button" id="play-all">Play the heartbeat</button>
+      </div>
+      <div id="view-help" class="view-help" aria-live="polite"></div>
+      <div id="key-holder"></div>
+      <div id="passage"></div>
+    </section>
+  </div>
