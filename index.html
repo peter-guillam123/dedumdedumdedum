@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dedumdedumdedum: learn to speak Shakespeare's verse</title>
+<meta name="description" content="Hear the rhythm under Shakespeare's words, tell verse from prose, and work out what to do with a line. Lessons, games and a rehearsal room for any speech. Free.">
+<meta property="og:title" content="dedumdedumdedum">
+<meta property="og:description" content="Learn to speak Shakespeare's verse: lessons, games and a rehearsal room for any speech.">
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem("dedum:theme"));if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script type="module" src="assets/js/site.js"></script>
+<script type="module" src="assets/js/pages/home.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="site-head__inner">
+  <a class="mark" href="./" aria-label="dedumdedumdedum, home"><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span></a>
+  <nav class="site-nav" aria-label="Main"><ul>
+    <li><a href="learn.html">Learn</a></li>
+    <li><a href="play.html">Play</a></li>
+    <li><a href="room.html">Rehearse</a></li>
+    <li><a href="today.html">Today</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul></nav>
+</div></header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <p class="big-mark" aria-hidden="true"><span class="de">de</span><span class="dum">DUM</span><span class="de">de</span><span class="dum">DUM</span><span class="de">de</span><span class="dum">DUM</span><span class="de">de</span><span class="dum">DUM</span><span class="gap">de</span><span class="gap">dum</span></p>
+      <h1 id="title">Learn to speak Shakespeare's verse</h1>
+      <p class="lede">Find the rhythm under the words, tell verse from prose, and work out what to do with a line. For actors, students and anyone with a speech to learn. Free, with nothing to sign up for.</p>
+    </section>
+
+    <section class="card try" aria-labelledby="try-title">
+      <p class="eyebrow">Try it now</p>
+      <h2 id="try-title" style="margin-top:0">Where are the beats?</h2>
+      <p>This is the first line of <i>Twelfth Night</i>. Say it out loud, then tap the syllables you lean on.</p>
+      <div id="try-line" aria-live="off"><p class="small">Loading the line…</p></div>
+      <div class="btn-row">
+        <button class="btn" id="try-check" type="button">Check</button>
+        <button class="btn btn--ghost" id="try-hear" type="button">Hear the heartbeat</button>
+        <button class="btn btn--ghost" id="try-again" type="button" hidden>Try again</button>
+      </div>
+      <div id="try-result" aria-live="polite"></div>
+    </section>
+
+    <section aria-labelledby="doors-title">
+      <h2 id="doors-title" class="visually-hidden">Where to go</h2>
+      <div class="doors">
+        <a class="card door" href="learn.html">
+          <p class="eyebrow">Start here</p>
+          <h3>Learn</h3>
+          <p>Nine short lessons, about five minutes each. You do something in every one.</p>
+        </a>
+        <a class="card door" href="room.html">
+          <p class="eyebrow">Got a speech?</p>
+          <h3>Rehearsal room</h3>
+          <p>Paste any speech, or find it in the plays. See every line scanned, with ways to play it and exercises to try.</p>
+        </a>
+        <a class="card door" href="play.html">
+          <p class="eyebrow">Train your ear</p>
+          <h3>Play</h3>
+          <p>Quick games: verse or prose, put the lines back, mark the beat, tap the heartbeat.</p>
+        </a>
+        <a class="card door" href="today.html">
+          <p class="eyebrow">Every day</p>
+          <h3>Today's line</h3>
+          <p>One line a day. Mark the beats, see how you did, share your score.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="paste-title">
+      <h2 id="paste-title" style="margin-top:0">Learning a speech?</h2>
+      <p>Paste it here and take it straight to the rehearsal room.</p>
+      <form id="paste-form" action="room.html" method="get">
+        <label for="paste" class="visually-hidden">Your speech</label>
+        <textarea id="paste" name="text" rows="5" placeholder="Is this a dagger which I see before me,&#10;The handle toward my hand?"></textarea>
+        <div class="btn-row" style="margin-top:.7rem">
+          <button class="btn" type="submit">Take it to the rehearsal room</button>
+          <a href="room.html#find">or find it in the plays</a>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap--wide">
+  <p>Made by Chris Moran, with Claude. Texts from the MIT Shakespeare (public domain). <a href="about.html">About this site</a></p>
+  <p><label for="theme">Look</label><select id="theme"><option value="auto">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></p>
+</div></footer>
+</body>
+</html>
