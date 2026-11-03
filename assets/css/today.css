@@ -1,0 +1,168 @@
+/* Today's line */
+
+.today .t-step {
+  margin: 1.2rem 0;
+}
+.t-step__title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.35rem;
+  margin: 0 0 0.6rem;
+}
+.t-num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--card);
+  font: 700 0.95rem/1 var(--sans);
+}
+.t-who {
+  color: var(--ink-2);
+  margin: 0 0 0.4rem;
+}
+.t-who b {
+  font-weight: 700;
+}
+.t-reading {
+  margin: 1rem 0 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+}
+.t-reading h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.2rem;
+}
+.t-reading .key {
+  margin-bottom: 0.4rem;
+}
+
+.t-options {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.t-option {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--rule-2);
+  background: var(--paper-2);
+  color: var(--ink);
+  font: 700 1rem/1.35 var(--sans);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.t-option:hover:not([disabled]) {
+  border-color: var(--ink);
+}
+.t-option[disabled] {
+  cursor: default;
+}
+.t-option .t-mark {
+  flex: none;
+  font: 700 0.8rem/1 var(--sans);
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+}
+.t-option.is-right {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+.t-option.is-right .t-mark {
+  color: var(--green);
+}
+.t-option.is-wrong {
+  border-color: var(--red);
+  background: var(--red-soft);
+}
+.t-option.is-wrong .t-mark {
+  color: var(--red);
+}
+.t-option.is-dim {
+  opacity: 0.55;
+}
+
+.t-share {
+  font: 700 1.05rem/1.6 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  margin: 0 0 0.9rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+.t-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0 0.4rem;
+}
+.t-stats div {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+}
+.t-stats dt {
+  font: 700 0.75rem/1.2 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.t-stats dd {
+  margin: 0.25rem 0 0;
+  font: 600 1.6rem/1.1 var(--serif);
+  color: var(--ink);
+}
+.t-tomorrow {
+  color: var(--ink-2);
+  margin: 0.6rem 0 0;
+}
+
+.t-more {
+  margin: 2rem 0 0;
+  display: grid;
+  gap: 1rem;
+}
+.t-more details {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0 1rem;
+}
+.t-more summary {
+  cursor: pointer;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+.t-more details[open] {
+  padding-bottom: 1rem;
+}
+.t-practice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: flex-end;
+}
+.t-practice-row > div {
+  flex: 1 1 14rem;
+}
+.t-practice-row select {
+  margin-top: 0.25rem;
+}

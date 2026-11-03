@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play · dedumdedumdedum</title>
+<meta name="description" content="Quick games to train your ear for Shakespeare's verse: verse or prose, put the lines back, mark the beat, tap the heartbeat.">
+<meta property="og:title" content="Play · dedumdedumdedum">
+<meta property="og:description" content="Quick games to train your ear for Shakespeare's verse: verse or prose, put the lines back, mark the beat, tap the heartbeat.">
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem("dedum:theme"));if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script type="module" src="assets/js/site.js"></script>
+<link rel="stylesheet" href="assets/css/play.css">
+<script type="module" src="assets/js/pages/play.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="site-head__inner">
+  <a class="mark" href="./" aria-label="dedumdedumdedum, home"><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span></a>
+  <nav class="site-nav" aria-label="Main"><ul>
+    <li><a href="learn.html">Learn</a></li>
+    <li><a href="play.html" aria-current="page">Play</a></li>
+    <li><a href="room.html">Rehearse</a></li>
+    <li><a href="today.html">Today</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul></nav>
+</div></header>
+
+<main id="main">
+  <div class="wrap">
+    <h1>Play</h1>
+    <p class="lede">Quick games to train your ear. A few minutes each, as often as you like. Your scores stay on this device.</p>
+    <nav aria-label="Games">
+      <div class="seg game-tabs" id="game-tabs" role="group" aria-label="Choose a game">
+        <button type="button" data-game="verse-prose" aria-pressed="false">Verse or prose?</button>
+        <button type="button" data-game="relineate" aria-pressed="false">Put the lines back</button>
+        <button type="button" data-game="mark" aria-pressed="false">Mark the beat</button>
+        <button type="button" data-game="tap" aria-pressed="false">Tap the heartbeat</button>
+      </div>
+    </nav>
+    <div id="game" class="game"><p class="small">Loading…</p></div>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap--wide">
+  <p>Made by Chris Moran, with Claude. Texts from the MIT Shakespeare (public domain). <a href="about.html">About this site</a></p>
+  <p><label for="theme">Look</label><select id="theme"><option value="auto">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></p>
+</div></footer>
+</body>
+</html>

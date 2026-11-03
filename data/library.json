@@ -1,0 +1,236 @@
+[
+  {
+    "id": "music", "title": "If music be the food of love", "who": "Orsino", "play": "twelfth_night", "a": 1, "s": 1, "from": 1, "to": 15,
+    "level": 1, "kind": "verse",
+    "about": "The first lines of Twelfth Night. Orsino is lovesick, and he wallows in it. Mostly regular verse, so it's a good place to feel the heartbeat.",
+    "look": ["The rhythm is steady: let it carry you.", "Count the changes of mind: more music, then enough, then no more.", "'O spirit of love' squeezes 'spirit' into one beat."]
+  },
+  {
+    "id": "ring", "title": "I left no ring with her", "who": "Viola", "play": "twelfth_night", "a": 2, "s": 2, "from": 16, "to": 40,
+    "level": 1, "kind": "verse",
+    "about": "Viola, dressed as a young man, has just been handed a ring she never gave. Working it out, she realises Olivia has fallen for her. A speech of quick thoughts and questions that ends on a rhyming couplet.",
+    "look": ["Lots of lines end on an extra light syllable: she's thinking as she goes.", "Questions: each one is a real question she's trying to answer.", "The last two lines rhyme. She can't solve it, so she hands it to time."],
+    "fix": { "17": "/xx/x/x/x/x" }
+  },
+  {
+    "id": "soft", "title": "But, soft! what light through yonder window breaks?", "who": "Romeo", "play": "romeo_juliet", "a": 2, "s": 2, "from": 2, "to": 25,
+    "level": 1, "kind": "verse",
+    "about": "Romeo, hidden in the Capulets' orchard, sees Juliet at her window. The first line is as regular as verse gets. Then the images pile up.",
+    "look": ["Line 1 is perfect de-DUM: hear it before you play with it.", "Short lines: 'O, that she knew she were!' leaves a gap. What fills it?", "Opposites: sun and moon, day and night."]
+  },
+  {
+    "id": "wherefore", "title": "O Romeo, Romeo! wherefore art thou Romeo?", "who": "Juliet and Romeo", "play": "romeo_juliet", "a": 2, "s": 2, "from": 35, "to": 52,
+    "level": 1, "kind": "dialogue",
+    "about": "Juliet thinks she's alone. 'Wherefore' means 'why', not 'where': why does he have to be a Montague? Romeo listens, then can't help answering, and the two of them share a line.",
+    "look": ["'Romeo' is three syllables, or two when the line needs it.", "Her argument turns on a name: what's in a name?", "The last line is shared: Romeo picks up her cue with no gap."]
+  },
+  {
+    "id": "gallop", "title": "Gallop apace, you fiery-footed steeds", "who": "Juliet", "play": "romeo_juliet", "a": 3, "s": 2, "from": 1, "to": 16,
+    "level": 2, "kind": "verse",
+    "about": "Juliet, newly married, wills the night to come. She doesn't yet know Romeo has killed Tybalt. Impatient, physical, full of commands.",
+    "look": ["The first line starts on the beat: 'Gallop'. Go straight in.", "Count the commands: gallop, spread, come, hood.", "'Immediately' needs all five syllables."]
+  },
+  {
+    "id": "potion", "title": "Farewell! God knows when we shall meet again", "who": "Juliet", "play": "romeo_juliet", "a": 4, "s": 3, "from": 15, "to": 24,
+    "level": 2, "kind": "verse",
+    "about": "Alone in her room, Juliet is about to drink the Friar's potion. Fear makes the verse break up into short lines.",
+    "look": ["Short lines: 'Nurse! What should she do here?' and 'Come, vial.' Each gap is a decision.", "Questions she has to answer alone.", "'No, no' then 'this shall forbid it': a sudden change of plan."]
+  },
+  {
+    "id": "winter", "title": "Now is the winter of our discontent", "who": "Richard, Duke of Gloucester", "play": "richardiii", "a": 1, "s": 1, "from": 1, "to": 13,
+    "level": 1, "kind": "verse",
+    "about": "Richard opens the play alone, talking straight to us. The war is over, and he has no use for peace. He's funny, bitter and very clear.",
+    "look": ["The first word is on the beat: 'Now'. He grabs the room.", "Opposites everywhere: winter and summer, war and dancing.", "A list of 'Our' lines, each topping the last."]
+  },
+  {
+    "id": "friends", "title": "Friends, Romans, countrymen, lend me your ears", "who": "Mark Antony", "play": "julius_caesar", "a": 3, "s": 2, "from": 82, "to": 97,
+    "level": 1, "kind": "verse",
+    "about": "Caesar's funeral. Brutus has just spoken in plain prose. Antony answers in verse, and slowly turns the crowd. Compare it with Brutus's speech in this library.",
+    "look": ["'Honourable' comes back again and again. Each time it means a bit less.", "'Ambitious' stretches to four syllables.", "Opposites: bury and praise, evil and good."]
+  },
+  {
+    "id": "romans", "title": "Romans, countrymen, and lovers!", "who": "Brutus", "play": "julius_caesar", "a": 3, "s": 2, "from": 13, "to": 36,
+    "level": 2, "kind": "prose",
+    "about": "Brutus explains to the crowd why he killed Caesar, in prose. It's clear, balanced and reasonable, and it loses the crowd to Antony's verse a few minutes later.",
+    "look": ["Prose: think in sentences, not lines.", "Balance: 'Not that I loved Caesar less, but that I loved Rome more.'", "Questions he answers himself. Wait for the crowd each time."]
+  },
+  {
+    "id": "happy", "title": "How happy some o'er other some can be!", "who": "Helena", "play": "midsummer", "a": 1, "s": 1, "from": 230, "to": 251,
+    "level": 1, "kind": "rhyme",
+    "about": "Helena loves Demetrius, who loves her friend Hermia. Alone, she reasons it out in rhyming couplets. The rhymes make her sound wiser than she feels.",
+    "look": ["Every pair of lines rhymes. Enjoy it, but don't sing it.", "She argues with herself: Love looks with the mind, not the eyes.", "The last couplet is a decision: she'll tell Demetrius."]
+  },
+  {
+    "id": "shadows", "title": "If we shadows have offended", "who": "Puck", "play": "midsummer", "a": 5, "s": 1, "from": 413, "to": 428,
+    "level": 1, "kind": "chant",
+    "about": "The last speech of the play: Puck asks the audience to forgive them and to clap. Four beats a line, mostly starting on the beat, like a spell.",
+    "look": ["Most lines go DUM-de DUM-de DUM-de DUM.", "One line goes the other way: 'And, as I am an honest Puck'.", "'Give me your hands': he means applause."]
+  },
+  {
+    "id": "double", "title": "Double, double toil and trouble", "who": "The witches", "play": "macbeth", "a": 4, "s": 1, "from": 10, "to": 21,
+    "level": 1, "kind": "chant",
+    "about": "The witches brew their spell. Four strong beats a line, starting on the beat, rhyming in pairs. It's the opposite of how people talk, and it's meant to be.",
+    "look": ["Start every line on the beat.", "'Fire' has two syllables here: FI-re BURN.", "The list of ingredients: give each one its own weight."]
+  },
+  {
+    "id": "dagger", "title": "Is this a dagger which I see before me", "who": "Macbeth", "play": "macbeth", "a": 2, "s": 1, "from": 41, "to": 49,
+    "level": 2, "kind": "verse",
+    "about": "Macbeth, alone, on his way to kill the king, sees a dagger in the air. He questions it, and himself.",
+    "look": ["Extra light syllables at the line ends: the thoughts won't settle.", "Questions: is it real?", "'Oppressèd' needs its -ed sounded."],
+    "notes": { "49": "A short line. The silence is when he draws his own dagger and compares the two." }
+  },
+  {
+    "id": "deed", "title": "I have done the deed", "who": "Lady Macbeth and Macbeth", "play": "macbeth", "a": 2, "s": 2, "from": 14, "to": 24,
+    "level": 2, "kind": "dialogue",
+    "about": "Just after the murder. Husband and wife whisper in the dark, finishing each other's lines. The verse breaks into pieces.",
+    "look": ["'Did not you speak? / When? / Now. / As I descended?': four speeches, one line of verse. No gaps.", "Short lines: listen to the silence.", "Questions, all of them frightened."]
+  },
+  {
+    "id": "tomorrow", "title": "Tomorrow, and tomorrow, and tomorrow", "who": "Macbeth", "play": "macbeth", "a": 5, "s": 5, "from": 19, "to": 30,
+    "level": 2, "kind": "verse",
+    "about": "Macbeth is told his wife is dead. His answer is the bleakest speech in Shakespeare. It starts and ends on short lines.",
+    "look": ["The 'and's take the beat: the days drag.", "The first and last lines are short. Let the silence be part of them.", "A list of images for life: shadow, player, tale."],
+    "notes": { "30": "Six syllables, the shortest line in the speech. The silence after 'nothing' is part of it." }
+  },
+  {
+    "id": "raven", "title": "The raven himself is hoarse", "who": "Lady Macbeth", "play": "macbeth", "a": 1, "s": 5, "from": 42, "to": 58,
+    "level": 3, "kind": "verse",
+    "about": "Lady Macbeth has just heard the king will stay the night. She calls on dark spirits to take away her pity. The verse is rough, with short lines and lines that don't settle.",
+    "look": ["It begins with a short line: the news is still landing.", "Commands: come, unsex me, fill me, take my milk.", "Rough lines: don't smooth them."],
+    "fix": { "44": "/xx/x//x/x", "46": "x/x/x/xx/x/" },
+    "notes": { "44": "A rough line: the rhythm cracks as she turns to call the spirits." }
+  },
+  {
+    "id": "spot", "title": "Out, damned spot! out, I say!", "who": "Lady Macbeth", "play": "macbeth", "a": 5, "s": 1, "from": 31, "to": 36,
+    "level": 2, "kind": "prose",
+    "about": "Lady Macbeth walks in her sleep, watched by a doctor and a gentlewoman. Earlier in the play she speaks tightly controlled verse. Now she speaks broken prose.",
+    "look": ["Prose, and broken prose: the switch from verse tells you what's happened to her.", "Short bursts. Each one is a different memory.", "Questions nobody answers."]
+  },
+  {
+    "id": "tobe", "title": "To be, or not to be", "who": "Hamlet", "play": "hamlet", "a": 3, "s": 1, "from": 64, "to": 77,
+    "level": 2, "kind": "verse",
+    "about": "The most famous speech in English, which makes it hard to say freshly. Hamlet weighs life against death as an argument, one step at a time.",
+    "look": ["Opposites: to be, not to be; suffer or take arms.", "Most lines end on an extra light syllable: an argument that won't close.", "New thoughts start in the middle of lines. Pick them up fast."],
+    "notes": { "76": "Only eight syllables. The missing beats come straight after 'pause', so the line builds the pause in. Take it." }
+  },
+  {
+    "id": "rogue", "title": "O, what a rogue and peasant slave am I!", "who": "Hamlet", "play": "hamlet", "a": 2, "s": 2, "from": 559, "to": 575,
+    "level": 3, "kind": "verse",
+    "about": "Hamlet has just watched an actor weep for a character in a story. He turns on himself: why can't he act on his real grief?",
+    "look": ["'For Hecuba!' is a short line. What happens in the gap?", "Questions, and he's furious with each answer.", "A list that builds: drown, cleave, make mad, confound, amaze."]
+  },
+  {
+    "id": "closet", "title": "Hamlet, thou hast thy father much offended", "who": "Gertrude and Hamlet", "play": "hamlet", "a": 3, "s": 4, "from": 9, "to": 14,
+    "level": 1, "kind": "dialogue",
+    "about": "Hamlet's mother has called him to her room. Six lines, and the clearest example in Shakespeare of thou and you: she says thou, he throws it back with you.",
+    "look": ["Thou is close, you is cold. Hear the gap between them.", "Each line copies the shape of the one before, then twists it.", "'Father' means two different men."]
+  },
+  {
+    "id": "pieceofwork", "title": "What a piece of work is a man!", "who": "Hamlet", "play": "hamlet", "a": 2, "s": 2, "from": 306, "to": 324,
+    "level": 2, "kind": "prose",
+    "about": "Hamlet to his old friends Rosencrantz and Guildenstern, who he knows have been sent to spy on him. Some of the most beautiful prose in the plays, and it's still prose: private, quick, testing them.",
+    "look": ["Prose: the line breaks on the page mean nothing.", "A build of praise for 'man', then the drop: 'quintessence of dust'.", "Watch who he's talking to. He's checking their faces."]
+  },
+  {
+    "id": "mercy", "title": "The quality of mercy is not strain'd", "who": "Portia", "play": "merchant", "a": 4, "s": 1, "from": 191, "to": 204,
+    "level": 2, "kind": "verse",
+    "about": "Portia, disguised as a lawyer, asks Shylock to show mercy. It's an argument, not a hymn: she's trying to win.",
+    "look": ["Mostly regular: the rhythm is calm and sure.", "Opposites: him that gives and him that takes.", "'Throned' and 'enthroned' sound their -ed."]
+  },
+  {
+    "id": "jew", "title": "To bait fish withal", "who": "Shylock", "play": "merchant", "a": 3, "s": 1, "from": 48, "to": 68,
+    "level": 2, "kind": "prose",
+    "about": "Shylock, taunted by Antonio's friends, explains why he wants his revenge. It contains 'Hath not a Jew eyes?'. Prose, and some of the most forceful in Shakespeare.",
+    "look": ["Questions that answer themselves: if you prick us, do we not bleed?", "Each sentence builds on the last.", "Prose here is not low or comic. It's direct."]
+  },
+  {
+    "id": "breach", "title": "Once more unto the breach, dear friends", "who": "Henry V", "play": "henryv", "a": 3, "s": 1, "from": 1, "to": 17,
+    "level": 2, "kind": "verse",
+    "about": "The siege of Harfleur. Henry drives his tired soldiers back into the attack. Long sentences, built to carry a crowd.",
+    "look": ["Lines run on: keep going, breathe at the full stops.", "Commands: imitate, stiffen, summon, disguise, set, stretch, hold, bend.", "'O-ce-an' gets all three syllables."],
+    "fix": { "1": "x/x/x/x/x/" },
+    "notes": { "1": "As regular verse, the beats land on MORE, -TO, BREACH, FRIENDS, MORE. Plenty of actors hit 'Once' as well. Try both." }
+  },
+  {
+    "id": "muse", "title": "O for a Muse of fire", "who": "The Chorus", "play": "henryv", "a": 1, "s": 0, "from": 1, "to": 18,
+    "level": 2, "kind": "verse",
+    "about": "The opening of Henry V. The Chorus apologises for the tiny stage and asks us to imagine armies and horses. Big ideas, then a joke at the theatre's expense.",
+    "look": ["'Invention' and 'million' stretch: in-VEN-ti-ON, MIL-li-ON.", "Questions: can this cockpit hold the fields of France?", "'Unraisèd' sounds its -ed."]
+  },
+  {
+    "id": "stage", "title": "All the world's a stage", "who": "Jaques", "play": "asyoulikeit", "a": 2, "s": 7, "from": 142, "to": 169,
+    "level": 1, "kind": "verse",
+    "about": "Jaques, a gloomy courtier in the forest, lists the seven ages of a man's life. A set piece, and a good one to learn the shape of a list.",
+    "look": ["It starts with a short line. Let it land.", "Each age gets a new picture. Find something different for each.", "The last line is a list of 'sans' (without)."]
+  },
+  {
+    "id": "rosalind", "title": "And why, I pray you? Who might be your mother", "who": "Rosalind", "play": "asyoulikeit", "a": 3, "s": 5, "from": 37, "to": 50,
+    "level": 2, "kind": "verse",
+    "about": "Rosalind, dressed as a young man, tells the proud shepherdess Phebe exactly what she thinks of her. Then Phebe starts to fancy her. Quick, rude and funny.",
+    "look": ["Questions fired at Phebe.", "Lines that run long: she can't stop.", "The insults are specific. Enjoy each one."]
+  },
+  {
+    "id": "blow", "title": "Blow, winds, and crack your cheeks!", "who": "King Lear", "play": "lear", "a": 3, "s": 2, "from": 1, "to": 9,
+    "level": 3, "kind": "verse",
+    "about": "Lear, thrown out by his daughters, roars at the storm. The verse can barely hold him.",
+    "look": ["Heavy syllables side by side. Don't rush them.", "Commands to the weather.", "The last line is short: he runs out."],
+    "fix": { "1": "//x/x///" },
+    "notes": { "1": "Eight syllables, six of them hammered. The verse can't contain him." }
+  },
+  {
+    "id": "never", "title": "Never, never, never, never, never!", "who": "King Lear", "play": "lear", "a": 5, "s": 3, "from": 359, "to": 367,
+    "level": 3, "kind": "verse",
+    "about": "Lear holds his dead daughter Cordelia. One line turns the whole pattern upside down.",
+    "look": ["'Never' five times, each starting on the beat.", "Short sentences, then a request about a button.", "'Look there': the last line is short."]
+  },
+  {
+    "id": "revels", "title": "Our revels now are ended", "who": "Prospero", "play": "tempest", "a": 4, "s": 1, "from": 163, "to": 172,
+    "level": 2, "kind": "verse",
+    "about": "Prospero stops the spirits' show and tells his future son-in-law that everything, the world included, will fade. Calm on the surface.",
+    "look": ["Lots of extra light syllables at line ends.", "A list of great things that will dissolve.", "A line that ends on 'and': no stopping there."]
+  },
+  {
+    "id": "afeard", "title": "Be not afeard; the isle is full of noises", "who": "Caliban", "play": "tempest", "a": 3, "s": 2, "from": 134, "to": 142,
+    "level": 1, "kind": "verse",
+    "about": "Caliban comforts the drunken Stephano and Trinculo, who speak prose. Caliban, the 'monster', speaks some of the most beautiful verse in the play.",
+    "look": ["Extra light syllables at the line ends: it drifts, like a dream.", "Sounds: noises, sounds, airs, voices.", "The last line is short: he's back in the dream."],
+    "fix": { "138": "x/x/x//xx/" }
+  },
+  {
+    "id": "fire", "title": "What fire is in mine ears?", "who": "Beatrice", "play": "much_ado", "a": 3, "s": 1, "from": 111, "to": 120,
+    "level": 2, "kind": "rhyme",
+    "about": "Beatrice has just overheard that Benedick loves her. She speaks prose almost everywhere else in the play. Now, alone, she speaks rhyming verse. The switch is the point.",
+    "look": ["Rhyme: the lines rhyme alternately, then the last two together.", "Questions, then decisions: farewell contempt.", "Ask why she's in verse here and nowhere else."]
+  },
+  {
+    "id": "trick", "title": "This can be no trick", "who": "Benedick", "play": "much_ado", "a": 2, "s": 3, "from": 205, "to": 231,
+    "level": 2, "kind": "prose",
+    "about": "Benedick has overheard (as planned) that Beatrice loves him. He talks himself into loving her back, in prose, and argues with his old self as he goes.",
+    "look": ["Prose: quick thought, quick changes.", "He answers his own objections.", "'Here comes Beatrice': the speech changes direction in a moment."]
+  },
+  {
+    "id": "emilia", "title": "But I do think it is their husbands' faults", "who": "Emilia", "play": "othello", "a": 4, "s": 3, "from": 93, "to": 110,
+    "level": 2, "kind": "verse",
+    "about": "Emilia to Desdemona, late at night, on why wives stray. Plain-spoken and furious about the double standard.",
+    "look": ["Questions that answer themselves.", "Lists: sweet and sour, sport and frailty.", "The last line is a warning. Land it."]
+  },
+  {
+    "id": "isabella", "title": "To whom should I complain?", "who": "Isabella", "play": "measure", "a": 2, "s": 4, "from": 183, "to": 199,
+    "level": 2, "kind": "verse",
+    "about": "Angelo has offered to spare Isabella's brother if she sleeps with him. Alone, she realises no one will believe her.",
+    "look": ["Questions with no good answer.", "A short line: 'To such abhorr'd pollution.'", "Opposites: 'More than our brother is our chastity.'"]
+  },
+  {
+    "id": "grief", "title": "Grief fills the room up of my absent child", "who": "Constance", "play": "john", "a": 3, "s": 4, "from": 95, "to": 107,
+    "level": 2, "kind": "verse",
+    "about": "Constance's young son Arthur has been captured. Told that she's too fond of grief, she explains why.",
+    "look": ["Lines that start on the beat: lies, puts, stuffs.", "Grief does everything her son used to do.", "The last lines are a list of what he was to her."]
+  },
+  {
+    "id": "hermione", "title": "Sir, spare your threats", "who": "Hermione", "play": "winters_tale", "a": 3, "s": 2, "from": 96, "to": 110,
+    "level": 3, "kind": "verse",
+    "about": "Hermione, on trial for adultery she didn't commit, answers her husband, the king. Late Shakespeare: long sentences, rough lines, thought overflowing the verse.",
+    "look": ["Lines run on and on: plan your breath.", "She counts her losses: first, second, third.", "Rough lines: they're hers, not mistakes."],
+    "notes": { "105": "A long, crowded line as she speaks of her baby. Don't tidy it." }
+  }
+]

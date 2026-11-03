@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · dedumdedumdedum</title>
+<meta name="description" content="What dedumdedumdedum is, how it works, and a diary of how it was built.">
+<meta property="og:title" content="About · dedumdedumdedum">
+<meta property="og:description" content="What dedumdedumdedum is, how it works, and a diary of how it was built.">
+<link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem("dedum:theme"));if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script type="module" src="assets/js/site.js"></script>
+<link rel="stylesheet" href="assets/css/about.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="site-head__inner">
+  <a class="mark" href="./" aria-label="dedumdedumdedum, home"><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span><span class="de">de</span><span class="dum">dum</span></a>
+  <nav class="site-nav" aria-label="Main"><ul>
+    <li><a href="learn.html">Learn</a></li>
+    <li><a href="play.html">Play</a></li>
+    <li><a href="room.html">Rehearse</a></li>
+    <li><a href="today.html">Today</a></li>
+    <li><a href="about.html" aria-current="page">About</a></li>
+  </ul></nav>
+</div></header>
+
+<main id="main">
+  <div class="wrap about">
+    <h1>About</h1>
+
+    <p class="lede">dedumdedumdedum teaches you to speak Shakespeare’s verse. Not to recite it: to speak it, so it sounds like a person thinking out loud. It’s for young actors, drama students, teachers, and anyone who has been handed a speech and a week to learn it.</p>
+
+    <p>Most guides to verse speaking give you the rules. This one tries to get you doing it: tapping the beat, marking a line, putting the line breaks back, catching the moment Lear switches from you to thou. When it talks about a line, it offers choices rather than answers, because that’s what verse offers an actor.</p>
+
+    <h2>What’s here</h2>
+    <ul>
+      <li><a href="learn.html">Learn</a>: nine short lessons, each with something to do.</li>
+      <li><a href="play.html">Play</a>: four games to train your ear.</li>
+      <li><a href="room.html">The rehearsal room</a>: any speech, scanned line by line, with notes, choices and rehearsal exercises. Start with the library of 37 checked speeches, search all 37 plays, or paste your own.</li>
+      <li><a href="today.html">Today’s line</a>: one line a day to mark, and a score to share.</li>
+    </ul>
+
+    <h2>How it works</h2>
+    <p>At the heart of it is a scanner: a program that works out where the beats fall in a line. It looks up each word in the CMU Pronouncing Dictionary, cut down to the 25,000 or so word forms Shakespeare uses, with his archaic forms and the names of his characters added by hand. It tries every reasonable way of saying the line (o’er, heav’n, belovèd, th’oppressor) and keeps the reading that best fits the pattern of five de-DUMs. Then it names what the line does: starts on the beat, ends on a light syllable, falls short, shares itself with another speaker.</p>
+    <p>It gets things wrong. Across the verse of six plays it finds a comfortable reading for about 95 lines in a hundred, but a comfortable reading isn’t always the one a good teacher would mark. That’s why you can change any mark, and why the 37 speeches in the library were checked by hand, line by line. Six lines needed correcting, mostly lines where Shakespeare breaks the rhythm on purpose. The dictionary is American, too, so a few words needed Shakespeare’s stress putting back: he says as-PECT, not AS-pect.</p>
+    <p>Scansion isn’t a fact anyway. Two good actors will mark the same line differently, and both can be right. Every mark on this site is one reading.</p>
+    <p>The texts are the MIT Shakespeare, which comes from the Moby edition and is in the public domain. Line numbers follow that edition, so they may be a few out from yours.</p>
+    <p>There’s no AI in the site, no accounts and no tracking. It runs in your browser, and your progress and marks are saved on your device and nowhere else. It’s built to work on a phone, by keyboard and with a screen reader.</p>
+    <p>I built it with Claude, Anthropic’s AI, doing the typing, and me doing the deciding. It’s plain JavaScript with no framework. The verse is set in EB Garamond, a revival of type cut by Claude Garamond, who died three years before Shakespeare was born. Everything else is in Atkinson Hyperlegible, designed by the Braille Institute for readers with low vision.</p>
+    <p>The name is four feet: de-dum de-dum de-dum de-dum. A proper line has five. I’d like to claim the missing foot is a deliberate silence, a short line for you to fill. It probably isn’t.</p>
+
+    <h2>What I’d like to add</h2>
+    <ul>
+      <li>Real voices. A good actor speaking these lines would teach more than any heartbeat.</li>
+      <li>First Folio spelling and punctuation, which many actors use as clues.</li>
+      <li>A teacher’s mode, for running the games with a class.</li>
+    </ul>
+
+    <h2>Diary</h2>
+    <ol class="diary" reversed>
+      <li class="milestone">
+        <p class="diary-date"><time datetime="2026-11-03">3 November 2026</time> <span class="tag">Milestone</span></p>
+        <h3>The first version</h3>
+        <p>I wanted something fun, immediate and flexible that would teach verse speaking rather than just show it, and told Claude to really go for it. We agreed the shape first: lessons, games, a rehearsal room for any speech, and a daily line to share, which was Claude’s idea. Then it was built in one long session.</p>
+        <p>The scanner came first, because everything else leans on it. Its first run put the beats in the wrong place in “Now is the winter of our discontent”, the most famous opening line in the history plays. It was too shy of putting a beat on “of”. Fixed, and now locked in by a test.</p>
+        <p>Then the library. Every line of 37 speeches checked against the scanner by eye. It was right far more often than I expected, and the hand-checking turned up rules worth adding: “barbèd steeds” (sound the -ed), Shakespeare’s “aspect”, and “honour”, which must never squeeze.</p>
+        <p>We left AI out for now. Rules I can see and check felt more trustworthy for teaching than a model I can’t, and it keeps the site free, quick and private.</p>
+        <p>The lessons fetch every line of Shakespeare from the texts by reference instead of quoting it, so nothing gets misquoted. Checking them still caught us out once: we’d described a line as running on when it ends with a comma.</p>
+      </li>
+    </ol>
+  </div>
+</main>
+
+<footer class="site-foot"><div class="wrap--wide">
+  <p>Made by Chris Moran, with Claude. Texts from the MIT Shakespeare (public domain). <a href="about.html">About this site</a></p>
+  <p><label for="theme">Look</label><select id="theme"><option value="auto">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></p>
+</div></footer>
+</body>
+</html>
