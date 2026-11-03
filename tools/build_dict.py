@@ -119,7 +119,7 @@ def guess(word, cmu):
     # compounds written as one word: split where both halves are known
     for i in range(3, len(w) - 2):
         a, b = w[:i], w[i:]
-        if a in cmu and b in cmu and len(a) > 2 and len(b) > 2:
+        if a in cmu and b in cmu and len(a) > 3 and len(b) > 3:
             return [cmu[a][0] + [re.sub(r"1$", "2", p) if VOWEL.match(p) else p for p in cmu[b][0]]]
     return None
 
@@ -150,6 +150,9 @@ EXTRA = {
     "adieu": "01", "dotage": "10", "orisons": "100", "bodkin": "10", "fardels": "10",
     "quietus": "010", "thews": "1", "mought": "1", "anointed": "010", "cozen": "10",
     "cozenage": "100", "mountebank": "100", "bawd": "1", "wench": "1", "coxcomb": "10",
+    # Shakespeare's stress, where it differs from the modern one
+    "access": "01|10", "aspect": "01", "aspects": "01", "revenue": "010", "obdurate": "010",
+    "persever": "010", "casque": "1", "casques": "1", "unheedy": "010", "ingrateful": "010", "phaethon": "100",
     "alarum": "010", "alarums": "010", "entreated": "010", "entreating": "010",
     # names
     "antipholus": "0100", "cassio": "100|10", "troilus": "100|10", "marcius": "100|10",
@@ -225,14 +228,21 @@ def derive(word, known):
                 if pat is None:
                     pat = "0" if stem[-1:] in ("t", "d") or (suf == "es" and stem[-1:] in "sxz") or stem.endswith(("ch", "sh")) else ""
                 return base + pat
+    for pre in ("un", "in", "dis", "mis", "re", "de", "be", "en"):
+        if w.startswith(pre) and len(w) - len(pre) >= 3:
+            rest = w[len(pre):]
+            if rest in known:
+                return "0" + known[rest].split("|")[0].split(":")[0]
+            if pre == "un" and count_syllables(rest) >= 2:
+                return "0" + derive(rest, known)
     n = count_syllables(w)
     if n <= 1:
         return "1"
-    if re.search(r"(tion|sion|cian|tions|sions)$", w):
+    if re.search(r"(tion|sion|cian|tions|sions|[tcx]ious)$", w):
         p = "0" * (n - 2) + "10"
     elif re.search(r"(ity|ities|ical|ous|ent|ence|ant|ance|ary|ory)$", w) and n >= 3:
         p = "0" * (n - 3) + "100"
-    elif re.search(r"^(a|be|de|re|en|em|im|in|un|con|com|dis|mis|ex|pre|pro|per)", w) and n == 2:
+    elif re.search(r"^(a|be|de|re|en|em|un)[^aeiouy][aeiouy]", w) and n == 2:
         p = "01"
     else:
         p = "1" + "0" * (n - 1)

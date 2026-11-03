@@ -129,7 +129,7 @@ export function analyse(scanner, speeches, opts = {}) {
     }
     const lines = sp.lines.map((l) => {
       const base = { n: l.n, text: l.text, indent: l.indent || 0 };
-      if (form === "verse") base.scan = scanner.scanLine(l.text, { tetra: meter === "tetrameter" });
+      if (form === "verse") base.scan = scanner.scanLine(l.text, { tetra: meter === "tetrameter", force: (opts.fix && opts.fix[l.n]) || null });
       else base.tokens = tokenize(l.text);
       return base;
     });
@@ -341,7 +341,10 @@ function summarise(a) {
   const prose = a.speeches.filter((s) => s.form === "prose");
   const lines = verse.flatMap((s) => s.lines);
   const kinds = {};
-  for (const l of lines) if (l.scan) kinds[l.scan.kind] = (kinds[l.scan.kind] || 0) + 1;
+  for (const l of lines) {
+    const k = l.shared ? "shared" : l.scan && l.scan.kind;
+    if (k) kinds[k] = (kinds[k] || 0) + 1;
+  }
   return {
     form: verse.length && prose.length ? "mixed" : verse.length ? "verse" : "prose",
     meter: verse.some((s) => s.meter === "tetrameter") ? "tetrameter" : "pentameter",

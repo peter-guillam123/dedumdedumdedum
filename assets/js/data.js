@@ -83,7 +83,16 @@ export async function getSpeech(id, act, scene, n) {
   return { play, scene: sc, items: [{ who: sp.w, form: sp.f, lines: sp.l.map(([n, text, indent]) => ({ n, text, indent: indent || 0 })) }] };
 }
 
+// The whole speech that contains line n.
+export async function getSpeechAround(id, act, scene, n) {
+  const play = await getPlay(id);
+  const sc = play.scenes.find((s) => s.a === act && s.s === scene);
+  const sp = sc && sc.items.find((it) => typeof it !== "string" && it.l.some(([m]) => m === n));
+  if (!sp) throw new Error("No such speech");
+  return getPassage(id, act, scene, sp.l[0][0], sp.l[sp.l.length - 1][0]);
+}
+
 export function citation(play, scene, from, to) {
   const roman = (n) => ["", "I", "II", "III", "IV", "V"][n] || String(n);
-  return `${play.title}, Act ${roman(scene.a)} Scene ${scene.s}${from ? `, lines ${from}${to && to !== from ? "–" + to : ""}` : ""}`;
+  return `${play.title}, Act ${roman(scene.a)} ${scene.s === 0 ? "Prologue" : `Scene ${scene.s}`}${from ? `, lines ${from}${to && to !== from ? "–" + to : ""}` : ""}`;
 }

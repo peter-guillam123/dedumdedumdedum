@@ -57,23 +57,25 @@ export function lineNotes(a, i) {
     }
   }
 
-  const scan = ln.scan;
+  // a piece of a shared line is judged as part of the whole line, not alone
+  const scan = ln.shared ? null : ln.scan;
+  if (ln.shared) {
+    const others = [...new Set(ln.shared.with.filter((w) => w && w !== sp.who))];
+    const names = others.length ? others.map(titleCase).join(" and ") : "another speaker";
+    add({
+      key: "shared", label: "Shared line", lesson: "breaks", rank: 1,
+      text: `This line is split with ${names}: together the pieces make one line of verse. So the verse leaves no room for a gap. The cue is picked up at once.`,
+      choices: [
+        "Come in right on the cue, almost on top of the other actor.",
+        "If you do leave a gap, know you're breaking the rhythm, and make the silence mean something.",
+      ],
+    });
+  }
   if (scan) {
     const f = (type) => scan.features.filter((x) => x.type === type);
     const shared = ln.shared;
 
-    if (shared) {
-      const others = shared.with.filter(Boolean);
-      const names = others.length ? others.map(titleCase).join(" and ") : "another speaker";
-      add({
-        key: "shared", label: "Shared line", lesson: "breaks", rank: 1,
-        text: `This line is split with ${names}: together the pieces make one line of verse, ten syllables between you. So the verse leaves no room for a gap. The cue is picked up at once.`,
-        choices: [
-          "Come in right on the cue, almost on top of the other actor.",
-          "If you do leave a gap, know you're breaking the rhythm, and make the silence mean something.",
-        ],
-      });
-    } else if (scan.kind === "short") {
+    if (scan.kind === "short") {
       const beats = scan.syllables.filter((x) => x.beat).length;
       const missing = Math.max(1, 5 - beats);
       add({
@@ -162,7 +164,9 @@ export function lineNotes(a, i) {
     if (scan.kind === "rough") {
       add({
         key: "rough", label: "Rough line", lesson: "breaks", rank: 2,
-        text: "This line doesn't sit easily in the pattern, and our reading is a guess. Say it aloud and tap the syllables to fix our marks. Rough lines often come at moments of strain, so don't rush to smooth it.",
+        text: scan.checked
+          ? "This line doesn't sit in the pattern, and that's the point. Rough lines often come at moments of strain. Don't smooth it."
+          : "This line doesn't sit easily in the pattern, and our reading is a guess. Say it aloud and tap the syllables to fix our marks. Rough lines often come at moments of strain, so don't rush to smooth it.",
         choices: [],
       });
     }
@@ -269,7 +273,7 @@ export function lineNotes(a, i) {
       if (shared) continue;
       const w = scan.words[x.word];
       add({
-        key: "runon", label: "Runs on", lesson: "line-end", rank: 3,
+        key: "runon", label: "Runs on", lesson: "line-end", rank: 4,
         text: `No punctuation at the end: the sense carries on into the next line. Don't stop or breathe here. But don't throw ${q(clean(w.text))} away either: a tiny lift on the last word keeps the shape of the verse without breaking the thought.`,
         choices: ["Carry on through, with a lift on the last word.", "Try a tiny suspension, not a pause, and see what it gives you."],
       });
@@ -370,6 +374,7 @@ export function passageNotes(a) {
     if (k.regular) parts.push(`${k.regular} regular`);
     if (k.feminine || k.double) parts.push(`${(k.feminine || 0) + (k.double || 0)} with an extra syllable at the end`);
     if (k.short) parts.push(`${k.short} short`);
+    if (k.shared) parts.push(`${k.shared} piece${k.shared === 1 ? "" : "s"} of shared lines`);
     const other = (k.alexandrine || 0) + (k.rough || 0) + (k.tetrameter || 0);
     if (other) parts.push(`${other} irregular`);
     out.push(sum.meter === "tetrameter"

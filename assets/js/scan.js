@@ -34,6 +34,7 @@ const WEAK = new Set(`in on by for from with or nor but if than that is am are w
   has have had hath do does did doth dost shall will would should can could may might must art
   wilt shalt canst i me my we us our you your ye thou thee thy he him his she her it its they them
   their 'tis 'twas 'twere 'twill 'twould 'gainst 'mongst 'twixt let which whom whose till sir o
+  since though while whilst lest till until whether
   there where's there's here's that's what's who's it's he's she's i'll we'll you'll he'll she'll
   they'll i'm i've we're you're they're i'd you'd he'd i'ld you'ld he'ld we'ld they'ld thou'rt
   thou'lt is't on't in't was't will't were't by'r ha' should'st would'st 'tween`.split(/\s+/));
@@ -41,11 +42,9 @@ const MIDDLING = new Set(`not no all this these those what who how when why now 
   most too such own one some each both yet still so thus well up out down off through o'er e'er
   oh ay nay yea mine thine none ere oft whence hence thence where`.split(/\s+/));
 // Longer words that behave like function words: their stress is soft.
-const SOFT_POLY = new Set(`upon unto into against about before within without beneath between
-  among unless until because whereas whether although any every many very being having even
-  only also ever never over under after again ourselves yourself myself himself herself itself
-  themselves thyself whereof whereon whereto wherein thereof therein therefore wherefore
-  whither thither hither whilst amongst`.split(/\s+/));
+const SOFT_POLY = new Set(`upon unto into onto against about before within without beneath between
+  among unless until because whereas although ourselves yourself myself himself herself itself
+  themselves thyself whereof whereon whereto wherein thereof therein whilst amongst`.split(/\s+/));
 
 // Contractions and archaic forms, as class strings (one letter per syllable).
 const FORMS = {
@@ -58,7 +57,7 @@ const FORMS = {
   "he'ld": "F", "they'ld": "F", "she'ld": "F", "thou'rt": "F", "thou'lt": "F", "by'r": "F",
   "l'envoy": "PU", "o": "F", "oh": "M", "upon't": "uP", "is't": "F", "on't": "F", "in't": "F",
   "was't": "F", "will't": "F", "were't": "F", "do't": "C", "see't": "C", "know't": "C",
-  "heav'n": "C", "heav'ns": "C", "e'er't": "M", our: "F",
+  "heav'n": "C", "heav'ns": "C", "e'er't": "M", our: "F", "soe'er": "uP",
 };
 
 // Little words that take stress when they finish a phrase: "play on", "go to".
@@ -104,6 +103,12 @@ export const OPPOSITES = [
   ["be", "seem"], ["is", "seems"], ["husband", "wife"], ["father", "son"], ["mother", "daughter"],
   ["mortal", "immortal"], ["full", "empty"], ["loved", "hated"], ["rise", "fall"],
 ];
+
+// Small words that glue a sentence together (for the "key words" view).
+export function isGlueWord(w) {
+  const x = String(w).toLowerCase();
+  return VERY_WEAK.has(x) || WEAK.has(x) || x === "o";
+}
 
 // ---------------------------------------------------------------- tokenising
 
@@ -166,9 +171,26 @@ export function guessSyllables(word) {
 }
 
 // Split a word's spelling into n pieces, one per syllable, for display.
+const PARTS = "with out in up on to my thy him her it your our them self selves where there here fore of by some thing things times one every any no how ever what so after more over never wise like home ward side be eye brow day night light heart time head land".split(" ");
+const PART_SET = new Set(PARTS);
+const ONE_BEAT_PARTS = new Set(PARTS.filter((p) => !/^(every|any|ever|after|over|never)$/.test(p)));
+
 export function splitSyllables(text, n) {
   if (n <= 1) return [text];
   const lower = text.toLowerCase();
+  // compounds of small words: with|out, where|fore, my|self
+  // o'erwhelm, ne'er-do
+  const pre = lower.match(/^(o'er|e'er|ne'er)(?=[a-z])/);
+  if (pre) return [text.slice(0, pre[1].length), ...splitSyllables(text.slice(pre[1].length), n - 1)];
+  if (/^[a-z]+$/.test(lower)) {
+    for (let i = 2; i <= lower.length - 2; i++) {
+      const a = lower.slice(0, i);
+      if (PART_SET.has(a) && PART_SET.has(lower.slice(i))) {
+        const na = ONE_BEAT_PARTS.has(a) ? 1 : 2;
+        if (na < n) return [...splitSyllables(text.slice(0, i), na), ...splitSyllables(text.slice(i), n - na)];
+      }
+    }
+  }
   const isV = (i) => {
     const c = lower[i];
     if (!c) return false;
@@ -194,7 +216,7 @@ export function splitSyllables(text, n) {
     if ((atEnd && !le) || (beforeEnd && groups.length > n)) groups.pop();
   }
   // split two-vowel groups when we need more
-  const splittable = /^(ia|io|eo|ua|uo|ie|ue|oe|ea|iou|eou|ai|oi)$/;
+  const splittable = /^(ia|io|eo|ua|uo|ie|ue|oe|ea|iou|eou|ai|oi|yi|ae)$/;
   while (groups.length < n) {
     const k = groups.findIndex(([a, b]) => b > a && splittable.test(lower.slice(a, b + 1)));
     if (k < 0) break;
@@ -202,6 +224,12 @@ export function splitSyllables(text, n) {
     groups.splice(k, 1, [a, a], [a + 1, b]);
   }
   while (groups.length > n) {
+    // a lone "e" inside the word before a consonant is usually silent: abatement, lovely
+    const silent = groups.findIndex(([a, b], k) => k > 0 && k < groups.length - 1 && a === b && lower[a] === "e" && !"aeiouy".includes(lower[a + 1] || "a") && !"aeiouy".includes(lower[a - 1]));
+    if (silent > 0) {
+      groups.splice(silent, 1);
+      continue;
+    }
     // merge the last two groups
     const b = groups.pop();
     groups[groups.length - 1][1] = b[1];
@@ -216,8 +244,12 @@ export function splitSyllables(text, n) {
   const blends = /^(bl|br|cl|cr|dr|fl|fr|gl|gr|pl|pr|tr|th|sh|ch|ph|wh|gh|qu|sc|sk|sl|sm|sn|sp|st|sw|tw|str|spr|scr|thr|shr|chr)$/;
   const pm = lower.match(/^(dis|mis|un|in|im|con|com|ex|trans|sub|ab|ad|ob|en|em|out|with|up|over|under|for|fore)(?=[^aeiouy'])/);
   const prefixEnd = pm ? pm[1].length : 0;
-  const sm = lower.match(/[^aeiouy'](est|eth|ing|ings|ed)$/);
-  const suffixStart = sm ? lower.length - sm[1].length : 0;
+  const sm = lower.match(/[^aeiouy'](est|eth|ing|ings|ed)$/) || lower.match(/(?:[^aeiouy']|e)(less|ness|ful|ment|ments|ly)$/);
+  // "shuffled", "wrinkled": the l (or r) belongs to the last syllable
+  if (sm && /[^aeiouy][lr](?:est|eth|ing|ings|ed)$/.test(lower)) sm[1] = "";
+  let suffixStart = sm && sm[1] ? lower.length - sm[1].length : 0;
+  // attest, not att-est: a doubled consonant splits down the middle
+  if (suffixStart > 1 && lower[suffixStart - 1] === lower[suffixStart - 2]) suffixStart = 0;
   const cuts = [];
   for (let k = 0; k < groups.length - 1; k++) {
     const from = groups[k][1] + 1;
@@ -226,14 +258,18 @@ export function splitSyllables(text, n) {
     let cut;
     if (to - from === 0) cut = from;
     else if (k === 0 && prefixEnd && prefixEnd > groups[0][1] && prefixEnd <= groups[1][0]) cut = prefixEnd;
-    else if (k === groups.length - 2 && suffixStart && suffixStart === groups[k + 1][0]) cut = suffixStart;
+    else if (k === groups.length - 2 && suffixStart && suffixStart >= from && suffixStart <= groups[k + 1][0]) cut = suffixStart;
     else if (cons.length === 1) cut = "xwy".includes(cons) ? to : from;
     else if (cons === "ck" || cons === "ng") cut = to;
-    else if (/^(gh|ck|w|y)/.test(cons)) cut = from + (cons[0] === "w" || cons[0] === "y" ? 1 : 2);
+    else if (/^(w|y)/.test(cons)) cut = from + 1;
+    else if (/^ck/.test(cons)) cut = from + 2;
+    else if (/^gh/.test(cons)) cut = from + (cons.length > 3 ? 3 : 2);
     else if (blends.test(cons)) cut = from;
-    else if (cons.length >= 2 && blends.test(cons.slice(1))) cut = from + 1;
-    else if (cons.length >= 3 && blends.test(cons.slice(2))) cut = from + 2;
-    else cut = from + 1;
+    else if (cons.length >= 3) {
+      // keep the longest cluster that can start a syllable: king-dom, in-stant
+      const onset = [3, 2].find((k) => k < cons.length && blends.test(cons.slice(-k))) || 1;
+      cut = to - onset;
+    } else cut = from + 1;
     cuts.push(cut);
   }
   const out = [];
@@ -307,6 +343,10 @@ export function createScanner(dictDoc) {
       add("", 0.9, "elide", "t'");
       return out;
     }
+    if (/soe'er$/.test(w) && w !== "soe'er") {
+      add("u".repeat(Math.max(1, guessSyllables(w.replace(/soe'er$/, "")))) + "uP", 0);
+      return out;
+    }
     if (w in FORMS) {
       add(FORMS[w], 0, FORMS[w] === "" ? "elide" : null, FORMS[w] === "" ? w : null);
       return out;
@@ -333,7 +373,10 @@ export function createScanner(dictDoc) {
     if (e) {
       // -ed endings: belovèd (sounded) or lov'd (silent)
       const edStem = /[^aeiou']ed$/.test(w) && !/[td]ed$/.test(w) && !/'d$/.test(word) ? w.slice(0, -2) : null;
-      const isVerbEd = edStem && /[aeiouy]/.test(edStem) && (entry(edStem) || entry(edStem + "e") || entry(edStem.replace(/(.)\1$/, "$1")) || entry(edStem.replace(/i$/, "y")));
+      // only when the dictionary says the -ed is silent: the word has no more
+      // syllables than its stem (so not "sacred", "hundred", "shuffled")
+      const shortest = Math.min(...e.pats.map((p) => p.length));
+      const isVerbEd = edStem && /[aeiouy]/.test(edStem) && shortest <= guessSyllables(edStem);
       if (isVerbEd) {
         const pats = e.pats.slice().sort((a, b) => a.length - b.length);
         const silent = pats[0];
@@ -350,9 +393,10 @@ export function createScanner(dictDoc) {
       const first = e.pats[0];
       const cls0 = classify(first, base);
       // squeeze: heav'n, ne'er, being as one beat
-      if (SQUEEZABLE[w] && first.length >= 2) {
+      const diphthongEnd = (/^[^aeiouy]*(?:our|ours|ayer|ayers|eyer)$/.test(w) && first === "10") || (/[^aeiouy](?:ire|ires|ired|ower|owers|ower'd|owered)$/.test(w) && /10$/.test(first));
+      if ((SQUEEZABLE[w] || diphthongEnd) && first.length >= 2) {
         const one = first.length === 2 ? "C" : classify(first.slice(0, -1), base);
-        add(one, 0.4, "squeeze", SQUEEZABLE[w]);
+        add(one, 0.4, "squeeze", SQUEEZABLE[w] || `${w} (one beat)`);
       }
       // syncope: nat'ral, ev'ry, gen'ral: drop an unstressed syllable after the main stress
       if (first.length >= 3) {
@@ -472,6 +516,30 @@ export function createScanner(dictDoc) {
     return { cost: top.cost, feet, pattern: pattern.join(""), nFeet: top.k, extra: top.extra };
   }
 
+  // A hand-checked reading ("x/x/x/x/x/") turned into feet, so the notes
+  // can describe it like any other line.
+  function forced(p) {
+    const feet = [];
+    let i = 0;
+    const n = p.length;
+    while (i < n) {
+      const two = p.slice(i, i + 2);
+      const three = p.slice(i, i + 3);
+      if (i >= n - 2 && /^x+$/.test(p.slice(i)) && feet.length) {
+        feet.push({ type: n - i === 1 ? "feminine" : "double", from: i, to: n });
+        break;
+      }
+      if (two === "x/") feet.push({ type: "iamb", from: i, to: (i += 2) });
+      else if (three === "xx/") feet.push({ type: "anapest", from: i, to: (i += 3) });
+      else if (two === "/x" && p[i + 2] !== "/") feet.push({ type: "trochee", from: i, to: (i += 2) });
+      else feet.push({ type: i === 0 ? "head" : "single", from: i, to: (i += 1) });
+    }
+    const last = feet[feet.length - 1];
+    const extra = last && last.type === "feminine" ? 1 : last && last.type === "double" ? 2 : 0;
+    const nFeet = feet.length - (extra ? 1 : 0);
+    return { cost: 0, feet, pattern: p.replace(/\//g, "S").replace(/x/g, "w"), nFeet, extra };
+  }
+
   // ---------------------------------------------------------------- one line
 
   function scanLine(text, opts = {}) {
@@ -538,7 +606,8 @@ export function createScanner(dictDoc) {
       if (k === options.length) {
         const syl = total(choice);
         if (!syl.length) return;
-        const f = fit(syl, mode);
+        if (opts.force && syl.length !== opts.force.length) return;
+        const f = opts.force ? forced(opts.force) : fit(syl, mode);
         if (!f) return;
         const cost = f.cost + vcost;
         if (!best || cost < best.cost) best = { cost, fit: f, syl, choice: choice.slice() };
@@ -551,7 +620,10 @@ export function createScanner(dictDoc) {
       }
     };
     walk(0, [], 0);
-    return describe(text, tokens, wordToks, best, mode);
+    if (opts.force && !best) return scanLine(text, { ...opts, force: null });
+    const line = describe(text, tokens, wordToks, best, mode);
+    if (opts.force) line.checked = true;
+    return line;
   }
 
   function describe(text, tokens, wordToks, best, mode) {
@@ -564,7 +636,9 @@ export function createScanner(dictDoc) {
     best.choice.forEach((v, k) => {
       const tok = wordToks[k].t;
       const n = v.cls.length;
-      const pieces = n ? splitSyllables(tok.text, n) : [tok.text];
+      // show belovèd with its accent when we sound the -ed
+      const shownText = v.how === "sound-ed" && v.shown ? tok.text.slice(0, -2) + "\u00e8d" : tok.text;
+      const pieces = n ? splitSyllables(shownText, n) : [tok.text];
       const word = {
         text: tok.text,
         word: tok.word,
@@ -592,6 +666,7 @@ export function createScanner(dictDoc) {
     else if (f.nFeet === 4 && !mode.tetra) line.kind = "tetrameter";
     else line.kind = f.extra === 1 ? "feminine" : f.extra === 2 ? "double" : "regular";
     if (!mode.short && line.cost > 4.2) line.kind = "rough";
+    if (!mode.short && f.feet.filter((x) => x.type === "single").length >= 2) line.kind = "rough";
     line.features = features(line, best);
     return line;
   }
