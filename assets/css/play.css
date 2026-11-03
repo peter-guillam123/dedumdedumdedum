@@ -1,0 +1,240 @@
+/* Play: the four games. Uses the tokens from site.css. */
+
+.game-tabs {
+  margin: 0.5rem 0 1.25rem;
+}
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0 1.5rem;
+}
+.game-head h2 {
+  margin-top: 0.4rem;
+}
+.game-head p {
+  margin-bottom: 0.4rem;
+}
+.game-card {
+  margin: 1rem 0 2rem;
+}
+.game-card .verse {
+  margin: 0.2rem 0 0.4rem;
+}
+
+/* verse or prose */
+.run-together {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 4vw, 1.45rem);
+  line-height: 1.6;
+  margin: 0.2rem 0 1rem;
+}
+.choices .btn {
+  min-width: 6.5rem;
+}
+.choices .btn[aria-pressed="true"] {
+  opacity: 1;
+  outline: 3px solid var(--rule-2);
+  outline-offset: 2px;
+}
+.reveal {
+  margin: 0.4rem 0 0.8rem;
+}
+.reveal-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  border-radius: 8px;
+}
+.reveal-line .vline {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.reveal-line.is-ok {
+  background: var(--green-soft);
+}
+.reveal-line.is-off {
+  background: var(--red-soft);
+}
+.count {
+  flex: none;
+  font: 700 0.78rem/1 var(--sans);
+  color: var(--ink-3);
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.3rem 0.5rem;
+  margin-bottom: 0.45rem;
+  font-variant-numeric: tabular-nums;
+}
+.count.is-ten {
+  color: var(--green);
+  background: var(--green-soft);
+  border-color: transparent;
+}
+.prose-line {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 3.8vw, 1.3rem);
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+@media (max-width: 40rem) {
+  .prose-line {
+    white-space: normal;
+  }
+}
+.cite {
+  color: var(--ink-3);
+  font-size: 0.92rem;
+  margin: 0.4rem 0;
+}
+.links {
+  font-size: 0.95rem;
+}
+.pattern {
+  font: 700 0.85rem/1.4 var(--sans);
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+  margin: 0.2rem 0 0.8rem;
+}
+
+/* put the lines back */
+.reline {
+  margin: 0.6rem 0 0.4rem;
+}
+.reline-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-bottom: 1px dashed var(--rule);
+  padding: 0.25rem 0;
+}
+.reline-words {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+  line-height: 1.2;
+}
+.reline-row .count {
+  margin-top: 0.55rem;
+  margin-bottom: 0;
+}
+.rw {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  min-height: 44px;
+  min-width: 2rem;
+  padding: 0 0.15rem;
+  margin: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.rw:hover:not(:disabled) {
+  background: var(--paper-2);
+}
+.rw:disabled {
+  cursor: default;
+  color: var(--ink);
+}
+.rw.is-end {
+  color: var(--red);
+  font-weight: 600;
+}
+.rw.is-end::after {
+  content: " /";
+  color: var(--red);
+  font-family: var(--sans);
+  font-weight: 700;
+}
+
+/* tap the heartbeat */
+.tap-line {
+  margin: 0.4rem 0 0.2rem;
+}
+.tap-line .syl {
+  position: relative;
+}
+.count-in {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-family: var(--serif);
+  color: var(--ink-3);
+  margin: 0.2rem 0 0.8rem;
+}
+.count-in .ci-dum {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+.count-in .is-now {
+  color: var(--red);
+}
+.tap-controls {
+  margin-bottom: 0.4rem;
+}
+.tap-btn {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 88px;
+  margin: 0.8rem 0;
+  border: 2px solid var(--red);
+  border-radius: 18px;
+  background: var(--red-soft);
+  color: var(--red);
+  font: 700 1.4rem/1 var(--sans);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tap-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.tap-btn.is-hit {
+  background: var(--red);
+  color: var(--paper);
+}
+.tap-mark {
+  position: absolute;
+  left: 50%;
+  bottom: -0.18em;
+  transform: translateX(-50%);
+  width: 0.34em;
+  height: 0.34em;
+  border-radius: 50%;
+}
+.tap-mark--good,
+.tap-dot--good {
+  background: var(--green);
+}
+.tap-mark--close,
+.tap-dot--close {
+  background: var(--amber);
+}
+.tap-mark--missed,
+.tap-dot--missed {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--red);
+}
+.tap-key .dot {
+  width: 11px;
+  height: 11px;
+}
+
+/* Printed prose lines are longer than a phone is wide: set them smaller so
+   each printed line stays on one row and the printer's breaks stay visible. */
+@media (max-width: 34rem) {
+  .prose-line {
+    font-size: clamp(0.7rem, 2.9vw, 0.95rem);
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+}
