@@ -4,7 +4,7 @@ import { getScanner, getLibrary, getPlays, getSpeechIndex, getPassage, getSpeech
 import { analyse, parsePasted } from "../passage.js";
 import { lineNotes, passageNotes, titleCase } from "../notes.js";
 import { isGlueWord, tokenize } from "../scan.js";
-import { el, renderLine, renderNote, renderKey, chip, beatWords, announce, sylClass, describeLine } from "../render.js";
+import { el, renderLine, renderNote, renderKey, chip, beatWords, announce, sharedIndent } from "../render.js";
 import { createMarker, explain } from "../marker.js";
 import * as beat from "../beat.js";
 import { load, save } from "../store.js";
@@ -365,7 +365,7 @@ function renderRow(i, seenKeys) {
   const line = renderLine(scan, { overrides, feet: state.feet, wordFrom, wordTo, label: `Line ${ln.n}` });
   line.classList.add("row__line");
   line.addEventListener("click", () => toggleRow(i));
-  const verse = el("div", { class: "verse" }, line);
+  const verse = el("div", { class: "verse", style: sharedIndent(ln.shared) }, line);
   body.append(verse);
   const meta = el("div", { class: "row__meta" });
   const labels = [];

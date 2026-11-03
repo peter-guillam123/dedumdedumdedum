@@ -129,3 +129,13 @@ export function announce(msg) {
   live.textContent = "";
   setTimeout(() => (live.textContent = msg), 30);
 }
+
+// How far to indent a piece of a shared line, so the pieces form a staircase
+// the way printed editions show them: roughly the width of what came before.
+export function sharedIndent(shared) {
+  if (!shared || !shared.part) return null;
+  const text = (ws) => ws.map((w) => w.text + (w.punct || "")).join(" ");
+  const before = text(shared.joined.words.slice(0, shared.wordFrom));
+  const own = text(shared.joined.words.slice(shared.wordFrom, shared.wordTo));
+  return `padding-left:max(0px, min(${((before.length + 1) * 0.44).toFixed(2)}em, calc(100% - ${((own.length + 1) * 0.5).toFixed(2)}em)))`;
+}
